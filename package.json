@@ -10,6 +10,8 @@
     "start": "node index.js",
     "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build:ui": "rm -rf dist && cd C:/Users/karlm/OneDrive/Desktop/proge/fullstackopen/FSO-submissions/part3/phonebook-frontend && npm run build && cp -r dist C:/Users/karlm/OneDrive/Desktop/proge/fullstackopen/FSO-phonebook-backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
@@ -18,5 +20,11 @@
     "express": "^5.2.1",
     "mongoose": "^9.11.0",
     "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0"
   }
 }

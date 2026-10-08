@@ -12,42 +12,42 @@ const url = `mongodb://fullstack:${password}@ac-61lkni3-shard-00-00.4oukxs8.mong
 mongoose.set('strictQuery', false)
 
 mongoose.connect(url, { family: 4 })
-    .then(() => runApp())
-    .catch(err => console.log(err.message))
+  .then(() => runApp())
+  .catch(err => console.log(err.message))
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+  name: String,
+  number: String,
 })
 
 const Person = mongoose.model('Person', personSchema)
 
 const runApp = () => {
-    if (process.argv.length == 3) {
-        Person.find({})
-            .then(result => {
-                if (result.length === 0) {
-                    console.log("phonebook is empty")
-                } else {
-                    console.log('phonebook:')
-                    result.forEach(p => console.log(p.name, p.number))
-                }
-            mongoose.connection.close()
-        })
-        return
-    }
+  if (process.argv.length === 3) {
+    Person.find({})
+      .then(result => {
+        if (result.length === 0) {
+          console.log('phonebook is empty')
+        } else {
+          console.log('phonebook:')
+          result.forEach(p => console.log(p.name, p.number))
+        }
+        mongoose.connection.close()
+      })
+    return
+  }
 
-    const personName = process.argv[3]
-    const personNumber = process.argv[4]
-    const person = new Person({
-        name: personName,
-        number: personNumber,
+  const personName = process.argv[3]
+  const personNumber = process.argv[4]
+  const person = new Person({
+    name: personName,
+    number: personNumber,
+  })
+
+  person.save()
+    .then(() => {
+      console.log(`added ${personName} number ${personNumber} to phonebook`)
+      mongoose.connection.close()
     })
 
-    person.save()
-        .then(result => {
-            console.log(`added ${personName} number ${personNumber} to phonebook`)
-            mongoose.connection.close()
-        })
-  
 }
